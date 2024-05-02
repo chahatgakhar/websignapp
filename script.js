@@ -1,9 +1,12 @@
 const canvas = document.getElementById('signatureCanvas');
 const context = canvas.getContext('2d');
 let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
 let penColor = '#000';
 let fontSize = '14px';
 let backgroundColor = '#FFF';
+let penSize = 2; // Default pen size
 
 const colorPicker = document.getElementById('colorPicker');
 colorPicker.addEventListener('input', (event) => {
@@ -13,6 +16,8 @@ colorPicker.addEventListener('input', (event) => {
 const fontSizeSelector = document.getElementById('fontSizeSelector');
 fontSizeSelector.addEventListener('change', (event) => {
     fontSize = event.target.value + 'px';
+    // Adjust pen size based on font size
+    penSize = parseInt(event.target.value) / 6; // You can adjust this scaling factor as needed
 });
 
 const backgroundPicker = document.getElementById('backgroundPicker');
@@ -35,6 +40,9 @@ canvas.addEventListener('touchend', stopDrawingTouch);
 
 function startDrawing(event) {
     isDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = event.clientX - rect.left;
+    lastY = event.clientY - rect.top;
     draw(event);
 }
 
@@ -45,7 +53,9 @@ function draw(event) {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    drawLine(x, y);
+    drawLine(lastX, lastY, x, y);
+    lastX = x;
+    lastY = y;
 }
 
 function stopDrawing() {
@@ -55,7 +65,11 @@ function stopDrawing() {
 function startDrawingTouch(event) {
     event.preventDefault();
     isDrawing = true;
-    drawTouch(event.touches[0]);
+    const rect = canvas.getBoundingClientRect();
+    const touch = event.touches[0];
+    lastX = touch.clientX - rect.left;
+    lastY = touch.clientY - rect.top;
+    drawTouch(touch);
 }
 
 function drawTouch(event) {
@@ -65,27 +79,32 @@ function drawTouch(event) {
     const x = event.touches[0].clientX - rect.left;
     const y = event.touches[0].clientY - rect.top;
 
-    drawLine(x, y);
+    drawLine(lastX, lastY, x, y);
+    lastX = x;
+    lastY = y;
 }
 
 function stopDrawingTouch() {
     isDrawing = false;
 }
 
-function drawLine(x, y) {
-    context.lineWidth = 2;
+function drawLine(startX, startY, endX, endY) {
+    context.lineWidth = penSize;
     context.lineCap = 'round';
     context.strokeStyle = penColor;
     context.font = fontSize + ' Arial';
 
-    context.lineTo(x, y);
-    context.stroke();
     context.beginPath();
-    context.moveTo(x, y);
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
+    context.stroke();
+    context.closePath();
 }
 
 function clearCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    lastX = 0;
+    lastY = 0;
 }
 
 function downloadSignature() {
