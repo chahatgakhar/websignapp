@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signature App</title>
+    <title>Web Sign App</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-grey-100 min-h-screen flex flex-col justify-center items-center p-2">
-    <div class="container bg-blue-50 p-4 rounded-lg shadow-lg w-full sm:w-96">
+<body class="min-h-screen flex flex-col justify-center items-center p-2">
+    <div class="container bg-blue-50 p-4 rounded-lg border-2 border-blue-500 shadow-lg w-full sm:w-96">
         <div class="tools flex flex-row mb-4">
             <div class="tool mb-2 sm:mb-0 mr-2">
                 <label for="colorPicker" class="mr-2 text-blue-800 font-bold">Pen</label>
@@ -19,7 +19,7 @@
             </div>
             <div class="tool">
                 <label for="fontSizeSelector" class="mr-2 text-blue-800 font-bold">Pen Size</label>
-                <select id="fontSizeSelector" class="border border-gray-300 rounded w-14 h-7">
+                <select id="fontSizeSelector" class="border border-gray-300 rounded w-15 h-7">
                     <option value="12">12px</option>
                     <option value="14">14px</option>
                     <option value="16">16px</option>
@@ -29,13 +29,16 @@
             </div>
         </div>
         <div class="signature border border-blue-500 p-4 rounded-lg mb-4">
-            <h1 class="title text-blue-800 text-center text-xl font-semibold tracking-tight mb-4">Web Sign App</h1>
+            <h1 class="title text-blue-800 text-center text-xl font-bold tracking-tight mb-4">Web Sign App</h1>
             <canvas id="signatureCanvas" class="border border-gray-300 w-full"></canvas>
         </div>
         <div class="buttons flex justify-center">
-            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2 mr-2" onclick="clearCanvas()">Clear</button>
-            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2 mr-2" onclick="downloadSignature()">Download</button>
-            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2" onclick="retrieveSignature()">Retrieve</button>
+            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2 mr-2 hover:bg-blue-600" onclick="clearCanvas()">Clear</button>
+            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2 mr-2 hover:bg-blue-600" onclick="downloadSignature()">Download</button>
+            <button class="btn bg-blue-500 text-white px-4 py-2 rounded-lg mb-2 hover:bg-blue-600" onclick="retrieveSignature()">Retrieve</button>
+        </div>
+        <div class="text-blue-800 text-sm mt-6 border-t pt-3 border-blue-500 font-semibold flex justify-center items-center">
+            <span>Designed by <a href="https://chahatgakhar.com/" class="underline hover:text-red-500">Chahat Gakhar</a></span>
         </div>
     </div>
 
