@@ -1,6 +1,6 @@
 # Websignapp
 
-## A fully functional signtaure download app
+## A fully functional Signature Download app
 
 **Features of Websignapp**
 
